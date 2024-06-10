@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_user_screen.dart';
 
 class HomeAdminScreen extends StatefulWidget {
   const HomeAdminScreen({super.key});
@@ -48,11 +49,11 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
           children: <Widget>[
             Container(
               height: 80, // Cambia la altura del encabezado aquí
-              padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Menú',
@@ -64,15 +65,17 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
               ),
             ),
             ListTile(
-              title: const Text('Agregar Usuarios'),
+              title: Text('Agregar Usuarios'),
               onTap: () {
-                // Acción para agregar usuarios
                 Navigator.of(context).pop(); // Cierra el drawer
-                // Aquí puedes añadir la lógica para navegar a la pantalla de agregar usuarios
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddUserScreen()),
+                ); // Navega a la pantalla de agregar usuarios
               },
             ),
             ListTile(
-              title: const Text('Perfil'),
+              title: Text('Perfil'),
               onTap: () {
                 // Acción para ir al perfil
                 Navigator.of(context).pop(); // Cierra el drawer
@@ -80,7 +83,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
               },
             ),
             ListTile(
-              title: const Text('Salir'),
+              title: Text('Salir'),
               onTap: () {
                 // Acción para salir
                 Navigator.of(context).pop(); // Cierra el drawer
@@ -95,14 +98,14 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
+            Text(
               'Cursos Disponibles',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             Expanded(
               child: _buildCourseList(),
             ),
@@ -146,7 +149,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
         return ListTile(
           title: Text(courses[index]),
         );
-      },
+      }
     );
-  }
+    }
 }
