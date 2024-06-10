@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:mygym_app/config/menu_principal.dart';
 
 class ListMenuWidget extends StatelessWidget {

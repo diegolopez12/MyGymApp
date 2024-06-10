@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
+//import 'home_user_screen.dart'; 
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -34,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       // Simulamos una llamada de red con un retraso
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
       // Aquí debería ir la lógica para verificar el correo y la clave
       if (_emailController.text == "test@example.com" &&
@@ -43,7 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           _isLoading = false;
         });
-        // Navegar a la pantalla principal o realizar otra acción
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeAdminScreen()),
+        );
       } else {
         // Credenciales incorrectas
         setState(() {
@@ -58,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Gym App'),
+        title: const Text('My Gym App'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -69,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Correo Electrónico'),
+                decoration: const InputDecoration(labelText: 'Correo Electrónico'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -81,10 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Clave de Acceso'),
+                decoration: const InputDecoration(labelText: 'Clave de Acceso'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -96,18 +103,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               _isLoading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ElevatedButton(
                       onPressed: _isLoading ? null : _login,
-                      child: Text('Ingresar'),
+                      child: const Text('Ingresar'),
                     ),
               if (_errorMessage != null) ...[
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
                   _errorMessage!,
-                  style: TextStyle(color: Colors.red),
+                  style: const TextStyle(color: Colors.red),
                 ),
               ]
             ],
