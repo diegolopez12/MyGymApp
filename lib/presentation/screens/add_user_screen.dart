@@ -36,9 +36,9 @@ class _AddUserScreenState extends State<AddUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Usuario'),
+        title: const Text('Añadir Usuario'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -52,7 +52,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
             children: <Widget>[
               TextFormField(
                 controller: _fullNameController,
-                decoration: InputDecoration(labelText: 'Nombre Completo'),
+                decoration: const InputDecoration(labelText: 'Nombre Completo'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingrese el nombre completo';
@@ -62,7 +62,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Correo Electrónico'),
+                decoration: const InputDecoration(labelText: 'Correo Electrónico'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingrese su correo electrónico';
@@ -75,7 +75,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Contraseña'),
+                decoration: const InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -91,7 +91,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
               ),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration: InputDecoration(labelText: 'Confirmación de Contraseña'),
+                decoration: const InputDecoration(labelText: 'Confirmación de Contraseña'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -105,7 +105,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
               ),
               DropdownButtonFormField<String>(
                 value: _selectedRole,
-                decoration: InputDecoration(labelText: 'Rol'),
+                decoration: const InputDecoration(labelText: 'Rol'),
                 items: <String>['Usuario', 'Administrador'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -124,10 +124,10 @@ class _AddUserScreenState extends State<AddUserScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _addUser,
-                child: Text('Añadir'),
+                child: const Text('Añadir'),
               ),
             ],
           ),

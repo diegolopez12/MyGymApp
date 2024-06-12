@@ -49,11 +49,11 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
           children: <Widget>[
             Container(
               height: 80, // Cambia la altura del encabezado aquí
-              padding: EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(16.0),
+              decoration: const BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Align(
+              child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Menú',
@@ -65,17 +65,17 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
               ),
             ),
             ListTile(
-              title: Text('Agregar Usuarios'),
+              title: const Text('Agregar Usuarios'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el drawer
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddUserScreen()),
+                  MaterialPageRoute(builder: (context) => const AddUserScreen()),
                 ); // Navega a la pantalla de agregar usuarios
               },
             ),
             ListTile(
-              title: Text('Perfil'),
+              title: const Text('Perfil'),
               onTap: () {
                 // Acción para ir al perfil
                 Navigator.of(context).pop(); // Cierra el drawer
@@ -83,7 +83,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
               },
             ),
             ListTile(
-              title: Text('Salir'),
+              title: const Text('Salir'),
               onTap: () {
                 // Acción para salir
                 Navigator.of(context).pop(); // Cierra el drawer
@@ -98,14 +98,14 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Cursos Disponibles',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: _buildCourseList(),
             ),
