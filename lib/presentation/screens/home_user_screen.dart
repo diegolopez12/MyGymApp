@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeUserScreen extends StatefulWidget {
-  const HomeUserScreen({super.key});
+  const HomeUserScreen({Key? key}) : super(key: key);
 
   @override
   _HomeUserScreenState createState() => _HomeUserScreenState();
@@ -27,7 +27,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
-              height: 80, // Cambia la altura del encabezado aquí
+              height: 80, // Ajusta la altura del encabezado aquí
               padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
                 color: Colors.blue,
@@ -37,7 +37,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                 child: Text(
                   'Menú',
                   style: TextStyle(
-                    fontSize: 18, // Cambia el tamaño de la fuente aquí
+                    fontSize: 18, // Ajusta el tamaño de la fuente aquí
                     color: Colors.white,
                   ),
                 ),
@@ -46,17 +46,15 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
             ListTile(
               title: const Text('Perfil'),
               onTap: () {
-                // Acción para ir al perfil
                 Navigator.of(context).pop(); // Cierra el drawer
-                // Aquí puedes añadir la lógica para navegar al perfil
+                // Aquí puedes agregar la lógica para navegar al perfil
               },
             ),
             ListTile(
               title: const Text('Salir'),
               onTap: () {
-                // Acción para salir
                 Navigator.of(context).pop(); // Cierra el drawer
-                // Aquí puedes añadir la lógica para salir
+                // Aquí puedes agregar la lógica para salir
               },
             ),
           ],
@@ -96,8 +94,21 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
     return ListView.builder(
       itemCount: courses.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(courses[index]),
+        return Card(
+          color: Colors.white.withOpacity(0.8),
+          child: ListTile(
+            title: Text(
+              courses[index],
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text('Descripción del curso ${index + 1}'),
+            trailing: IconButton(
+              icon: Icon(Icons.arrow_forward),
+              onPressed: () {
+                // Acción al presionar el botón de detalle
+              },
+            ),
+          ),
         );
       },
     );
