@@ -85,10 +85,14 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo del gimnasio
-                  Image.asset(
-                    'assets/gym_logo.png',
-                    height: 100,
+                  // Logo del gimnasio redondeado
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/gym_logo.png',
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   const Text(

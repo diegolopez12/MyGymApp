@@ -1,32 +1,12 @@
 import 'package:flutter/material.dart';
-import 'add_user_screen.dart';
+import 'package:mygym_app/presentation/screens/add_user_screen.dart';
 
-class HomeAdminScreen extends StatefulWidget {
+class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
 
-  @override
-  _HomeAdminScreenState createState() => _HomeAdminScreenState();
-}
-
-class _HomeAdminScreenState extends State<HomeAdminScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      // Aquí puedes agregar la lógica para cada acción
-      switch (index) {
-        case 0:
-          // Lógica para agregar un curso
-          break;
-        case 1:
-          // Lógica para modificar un curso
-          break;
-        case 2:
-          // Lógica para eliminar un curso
-          break;
-      }
-    });
+  void _navigateToAddUser(BuildContext context) {
+    // Aquí iría la lógica para navegar a la pantalla de añadir usuario
+     Navigator.push(context, MaterialPageRoute(builder: (context) => const AddUserScreen()));
   }
 
   @override
@@ -34,122 +14,124 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Gym App'),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
+        backgroundColor: Colors.orangeAccent,
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              height: 80, // Cambia la altura del encabezado aquí
-              padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                color: Colors.blue,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.orangeAccent,
               ),
-              child: const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Menú',
-                  style: TextStyle(
-                    fontSize: 18, // Cambia el tamaño de la fuente aquí
-                    color: Colors.white,
-                  ),
+              child: Text(
+                'Menú',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
                 ),
               ),
             ),
             ListTile(
-              title: const Text('Agregar Usuarios'),
+              leading: const Icon(Icons.person_add),
+              title: const Text('Agregar Usuarios', style: TextStyle(fontSize: 16)),
+              dense: true,
               onTap: () {
-                Navigator.of(context).pop(); // Cierra el drawer
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const AddUserScreen()),
-                ); // Navega a la pantalla de agregar usuarios
+                Navigator.pop(context);
+                _navigateToAddUser(context);
               },
             ),
             ListTile(
-              title: const Text('Perfil'),
+              leading: const Icon(Icons.person),
+              title: const Text('Perfil', style: TextStyle(fontSize: 16)),
+              dense: true,
               onTap: () {
-                // Acción para ir al perfil
-                Navigator.of(context).pop(); // Cierra el drawer
-                // Aquí puedes añadir la lógica para navegar al perfil
+                // Navegar a la pantalla de perfil
               },
             ),
             ListTile(
-              title: const Text('Salir'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Salir', style: TextStyle(fontSize: 16)),
+              dense: true,
               onTap: () {
-                // Acción para salir
-                Navigator.of(context).pop(); // Cierra el drawer
-                // Aquí puedes añadir la lógica para salir
+                // Lógica para salir
               },
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        color: Colors.black.withOpacity(0.1), 
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Cursos Disponibles',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+          children: [
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: 5, // Aquí hay que poner el número de cursos desde la base de datos
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.white.withOpacity(0.8),
+                    child: ListTile(
+                      title: Text('Curso $index'),
+                      subtitle: Text('Descripción del curso $index'),
+                      onTap: () {
+                        // Lógica para ver detalles del curso
+                      },
+                    ),
+                  );
+                },
               ),
             ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: _buildCourseList(),
+            Container(
+              color: Colors.orangeAccent.withOpacity(0.8),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.add, color: Colors.white),
+                          onPressed: () {
+                            // Lógica para añadir curso
+                          },
+                        ),
+                        const Text('Agregar', style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.white),
+                          onPressed: () {
+                            // Lógica para modificar curso
+                          },
+                        ),
+                        const Text('Modificar', style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.white),
+                          onPressed: () {
+                            // Lógica para eliminar curso
+                          },
+                        ),
+                        const Text('Eliminar', style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Agregar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.edit),
-            label: 'Modificar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.delete),
-            label: 'Eliminar',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
       ),
     );
   }
-
-  Widget _buildCourseList() {
-    // Aquí deberías reemplazar esta lista de ejemplo con la llamada a tu base de datos
-    List<String> courses = [
-      'Curso de Yoga',
-      'Entrenamiento de Fuerza',
-      'Pilates',
-      'Zumba'
-    ];
-
-    return ListView.builder(
-      itemCount: courses.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(courses[index]),
-        );
-      }
-    );
-    }
 }
