@@ -10,7 +10,7 @@ UserResponse userResponseFromJson(String str) => UserResponse.fromJson(json.deco
 String userResponseToJson(UserResponse data) => json.encode(data.toJson());
 
 class UserResponse {
-    List<Datum> data;
+    List<User> data;
     Meta meta;
 
     UserResponse({
@@ -19,7 +19,7 @@ class UserResponse {
     });
 
     factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<User>.from(json["data"].map((x) => User.fromJson(x))),
         meta: Meta.fromJson(json["meta"]),
     );
 
@@ -29,16 +29,16 @@ class UserResponse {
     };
 }
 
-class Datum {
+class User {
     int id;
     Attributes attributes;
 
-    Datum({
+    User({
         required this.id,
         required this.attributes,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         attributes: Attributes.fromJson(json["attributes"]),
     );

@@ -9,7 +9,7 @@ AsistenciasResponse asistenciasResponseFromJson(String str) => AsistenciasRespon
 String asistenciasResponseToJson(AsistenciasResponse data) => json.encode(data.toJson());
 
 class AsistenciasResponse {
-    List<Datum> data;
+    List<Asistencia> data;
     Meta meta;
 
     AsistenciasResponse({
@@ -18,7 +18,7 @@ class AsistenciasResponse {
     });
 
     factory AsistenciasResponse.fromJson(Map<String, dynamic> json) => AsistenciasResponse(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Asistencia>.from(json["data"].map((x) => Asistencia.fromJson(x))),
         meta: Meta.fromJson(json["meta"]),
     );
 
@@ -28,16 +28,16 @@ class AsistenciasResponse {
     };
 }
 
-class Datum {
+class Asistencia {
     int id;
     Attributes attributes;
 
-    Datum({
+    Asistencia({
         required this.id,
         required this.attributes,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Asistencia.fromJson(Map<String, dynamic> json) => Asistencia(
         id: json["id"],
         attributes: Attributes.fromJson(json["attributes"]),
     );

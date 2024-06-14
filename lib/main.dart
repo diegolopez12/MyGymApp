@@ -1,23 +1,42 @@
-import 'package:flutter/material.dart';
-//import 'package:mygym_app/config/app_theme-dart';
-import 'package:mygym_app/presentation/screens/login_screen.dart';
-//import 'package:mygym_app/presentation/widgets/list_menu_widget.dart';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:mygym_app/presentation/screens/login_screen.dart';
+import 'package:mygym_app/providers/asitencia_provider.dart';
+import 'package:mygym_app/providers/curso_provider.dart';
+import 'package:mygym_app/providers/usuario_provider.dart';
+
+import 'package:provider/provider.dart';
+
+
+
+
+void main() async {
+  // cargue primero todas las configuraciones antes de correr la app 
+  //await dotenv.load(fileName: ".env");
   runApp(const MyApp());
-}
+} 
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
-   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My Gym App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UsuarioProvider()),
+         ChangeNotifierProvider(create: (_) => CursoProvider()),
+          ChangeNotifierProvider(create: (_) => AsistenciaProvider()),
+
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+       primarySwatch: Colors.blue,
+          useMaterial3: true,
+         ),
+        home: const LoginScreen(),
       ),
-      home: const LoginScreen(),
     );
   }
 }

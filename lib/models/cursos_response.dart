@@ -9,7 +9,7 @@ CursosResponse cursosResponseFromJson(String str) => CursosResponse.fromJson(jso
 String cursosResponseToJson(CursosResponse data) => json.encode(data.toJson());
 
 class CursosResponse {
-    List<Datum> data;
+    List<Curso> data;
     Meta meta;
 
     CursosResponse({
@@ -18,7 +18,7 @@ class CursosResponse {
     });
 
     factory CursosResponse.fromJson(Map<String, dynamic> json) => CursosResponse(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Curso>.from(json["data"].map((x) => Curso.fromJson(x))),
         meta: Meta.fromJson(json["meta"]),
     );
 
@@ -28,16 +28,16 @@ class CursosResponse {
     };
 }
 
-class Datum {
+class Curso {
     int id;
     Attributes attributes;
 
-    Datum({
+    Curso({
         required this.id,
         required this.attributes,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Curso.fromJson(Map<String, dynamic> json) => Curso(
         id: json["id"],
         attributes: Attributes.fromJson(json["attributes"]),
     );
