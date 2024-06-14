@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeUserScreen extends StatefulWidget {
-  const HomeUserScreen({Key? key}) : super(key: key);
+  const HomeUserScreen({super.key});
 
   @override
   _HomeUserScreenState createState() => _HomeUserScreenState();
@@ -13,6 +13,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Gym App'),
+        backgroundColor: Colors.orangeAccent,
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -30,7 +31,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
               height: 80, // Ajusta la altura del encabezado aquí
               padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Colors.orangeAccent,
               ),
               child: const Align(
                 alignment: Alignment.centerLeft,
@@ -44,73 +45,57 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
               ),
             ),
             ListTile(
-              title: const Text('Perfil'),
+              leading: const Icon(Icons.person),
+              title: const Text('Perfil', style: TextStyle(fontSize: 16)),
+              dense: true,
               onTap: () {
-                Navigator.of(context).pop(); // Cierra el drawer
+                Navigator.pop(context);
                 // Aquí puedes agregar la lógica para navegar al perfil
               },
             ),
             ListTile(
-              title: const Text('Salir'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Salir', style: TextStyle(fontSize: 16)),
+              dense: true,
               onTap: () {
-                Navigator.of(context).pop(); // Cierra el drawer
+                Navigator.pop(context);
                 // Aquí puedes agregar la lógica para salir
               },
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        color: Colors.black.withOpacity(0.1), // Fondo liso para coincidir con home_admin_screen
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Cursos Matriculados',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
+          children: [
             Expanded(
-              child: _buildCourseList(),
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: 4, // Número de cursos
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.white.withOpacity(0.8),
+                    child: ListTile(
+                      title: Text(
+                        'Curso ${index + 1}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text('Descripción del curso ${index + 1}'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.arrow_forward),
+                        onPressed: () {
+                          // Acción al presionar el botón de detalle
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildCourseList() {
-    // Aquí deberías reemplazar esta lista de ejemplo con la llamada a tu base de datos
-    List<String> courses = [
-      'Curso de Yoga',
-      'Entrenamiento de Fuerza',
-      'Pilates',
-      'Zumba'
-    ];
-
-    return ListView.builder(
-      itemCount: courses.length,
-      itemBuilder: (context, index) {
-        return Card(
-          color: Colors.white.withOpacity(0.8),
-          child: ListTile(
-            title: Text(
-              courses[index],
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text('Descripción del curso ${index + 1}'),
-            trailing: IconButton(
-              icon: Icon(Icons.arrow_forward),
-              onPressed: () {
-                // Acción al presionar el botón de detalle
-              },
-            ),
-          ),
-        );
-      },
     );
   }
 }

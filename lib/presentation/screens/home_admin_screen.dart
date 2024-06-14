@@ -5,8 +5,10 @@ class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
 
   void _navigateToAddUser(BuildContext context) {
-    // Aquí iría la lógica para navegar a la pantalla de añadir usuario
-     Navigator.push(context, MaterialPageRoute(builder: (context) => const AddUserScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddUserScreen()),
+    );
   }
 
   @override
@@ -15,20 +17,33 @@ class HomeAdminScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Gym App'),
         backgroundColor: Colors.orangeAccent,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
+            Container(
+              height: 80, // Ajusta la altura del encabezado aquí
+              padding: const EdgeInsets.all(16.0),
+              decoration: const BoxDecoration(
                 color: Colors.orangeAccent,
               ),
-              child: Text(
-                'Menú',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Menú',
+                  style: TextStyle(
+                    fontSize: 18, // Ajusta el tamaño de la fuente aquí
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
