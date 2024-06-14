@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
-import 'home_user_screen.dart'; 
+import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
+//import 'home_user_screen.dart'; 
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeUserScreen()),
+          MaterialPageRoute(builder: (context) => const HomeAdminScreen()),
         );
       } else {
         // Credenciales incorrectas

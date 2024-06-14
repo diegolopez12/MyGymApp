@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mygym_app/presentation/screens/add_user_screen.dart';
+import 'package:mygym_app/presentation/screens/courses_screens/add_course_screen.dart';
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
@@ -8,6 +9,13 @@ class HomeAdminScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AddUserScreen()),
+    );
+  }
+
+  void _navigateToAddCourse(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddCourseScreen()), // Navega a la nueva pantalla
     );
   }
 
@@ -110,7 +118,7 @@ class HomeAdminScreen extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.add, color: Colors.white),
                           onPressed: () {
-                            // Lógica para añadir curso
+                            _navigateToAddCourse(context); // Navega a la nueva pantalla de añadir curso
                           },
                         ),
                         const Text('Agregar', style: TextStyle(color: Colors.white)),
