@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mygym_app/presentation/screens/login_screen.dart';
 
 class HomeUserScreen extends StatefulWidget {
   const HomeUserScreen({super.key});
@@ -8,6 +9,14 @@ class HomeUserScreen extends StatefulWidget {
 }
 
 class _HomeUserScreenState extends State<HomeUserScreen> {
+  void _navigateToLoginScreen(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +37,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
-              height: 80, // Ajusta la altura del encabezado aquí
+              height: 80, 
               padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
                 color: Colors.orangeAccent,
@@ -38,20 +47,11 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                 child: Text(
                   'Menú',
                   style: TextStyle(
-                    fontSize: 18, // Ajusta el tamaño de la fuente aquí
+                    fontSize: 18, 
                     color: Colors.white,
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Perfil', style: TextStyle(fontSize: 16)),
-              dense: true,
-              onTap: () {
-                Navigator.pop(context);
-                // Aquí puedes agregar la lógica para navegar al perfil
-              },
             ),
             ListTile(
               leading: const Icon(Icons.exit_to_app),
@@ -59,14 +59,14 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
               dense: true,
               onTap: () {
                 Navigator.pop(context);
-                // Aquí puedes agregar la lógica para salir
+                _navigateToLoginScreen(context);
               },
             ),
           ],
         ),
       ),
       body: Container(
-        color: Colors.black.withOpacity(0.1), // Fondo liso para coincidir con home_admin_screen
+        color: Colors.black.withOpacity(0.1), 
         child: Column(
           children: [
             Expanded(

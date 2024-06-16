@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:mygym_app/presentation/screens/add_user_screen.dart';
 import 'package:mygym_app/presentation/screens/courses_screens/add_course_screen.dart';
+import 'package:mygym_app/presentation/screens/courses_screens/delete_course_screen.dart';
+import 'package:mygym_app/presentation/screens/courses_screens/modify_course_screen.dart';
+import 'package:mygym_app/presentation/screens/login_screen.dart'; 
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
 
   void _navigateToAddUser(BuildContext context) {
     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddUserScreen()),
-    );
+        context, MaterialPageRoute(builder: (context) => const AddUserScreen()));
   }
 
   void _navigateToAddCourse(BuildContext context) {
     Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const AddCourseScreen()));
+  }
+
+  void _navigateToDeleteCourse(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const DeleteCourseScreen()));
+  }
+
+  void _navigateToModifyCourse(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ModifyCourseScreen()));
+  }
+
+  void _navigateToLoginScreen(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const AddCourseScreen()), // Navega a la nueva pantalla
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (Route<dynamic> route) => false,
     );
   }
 
@@ -25,14 +42,6 @@ class HomeAdminScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Gym App'),
         backgroundColor: Colors.orangeAccent,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -65,26 +74,19 @@ class HomeAdminScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Perfil', style: TextStyle(fontSize: 16)),
-              dense: true,
-              onTap: () {
-                // Navegar a la pantalla de perfil
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text('Salir', style: TextStyle(fontSize: 16)),
               dense: true,
               onTap: () {
-                // Lógica para salir
+                Navigator.pop(context);
+                _navigateToLoginScreen(context); // Navegar a la pantalla de login
               },
             ),
           ],
         ),
       ),
       body: Container(
-        color: Colors.black.withOpacity(0.1), 
+        color: Colors.black.withOpacity(0.1),
         child: Column(
           children: [
             Expanded(
@@ -118,11 +120,7 @@ class HomeAdminScreen extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.add, color: Colors.white),
                           onPressed: () {
-                            _navigateToAddCourse(context); // Navega a la nueva pantalla de añadir curso
-
-
-
-                            
+                            _navigateToAddCourse(context);
                           },
                         ),
                         const Text('Agregar', style: TextStyle(color: Colors.white)),
@@ -134,7 +132,7 @@ class HomeAdminScreen extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.white),
                           onPressed: () {
-                            // Lógica para modificar curso
+                            _navigateToModifyCourse(context);
                           },
                         ),
                         const Text('Modificar', style: TextStyle(color: Colors.white)),
@@ -146,7 +144,7 @@ class HomeAdminScreen extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.white),
                           onPressed: () {
-                            // Lógica para eliminar curso
+                            _navigateToDeleteCourse(context);
                           },
                         ),
                         const Text('Eliminar', style: TextStyle(color: Colors.white)),

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 import 'package:http/http.dart' as http;
 import 'package:mygym_app/models/cursos_response.dart';
-
-
-
-
 
 class CursoProvider extends ChangeNotifier {
 String baseURL = dotenv.env['BASE_URL']!;
