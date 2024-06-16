@@ -119,6 +119,10 @@ class HomeAdminScreen extends StatelessWidget {
                           icon: const Icon(Icons.add, color: Colors.white),
                           onPressed: () {
                             _navigateToAddCourse(context); // Navega a la nueva pantalla de añadir curso
+
+
+
+                            
                           },
                         ),
                         const Text('Agregar', style: TextStyle(color: Colors.white)),
