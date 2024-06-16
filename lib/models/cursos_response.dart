@@ -1,21 +1,17 @@
-// To parse this JSON data, do
-//
-//     final cursosResponse = cursosResponseFromJson(jsonString);
-
 import 'dart:convert';
 
-CursosResponse cursosResponseFromJson(String str) => CursosResponse.fromJson(json.decode(str));
-
-String cursosResponseToJson(CursosResponse data) => json.encode(data.toJson());
-
 class CursosResponse {
-    List<Curso> data;
-    Meta meta;
+    final List<Curso> data;
+    final Meta meta;
 
     CursosResponse({
         required this.data,
         required this.meta,
     });
+
+    factory CursosResponse.fromRawJson(String str) => CursosResponse.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory CursosResponse.fromJson(Map<String, dynamic> json) => CursosResponse(
         data: List<Curso>.from(json["data"].map((x) => Curso.fromJson(x))),
@@ -29,13 +25,17 @@ class CursosResponse {
 }
 
 class Curso {
-    int id;
-    Attributes attributes;
+    final int id;
+    final Attributes attributes;
 
     Curso({
         required this.id,
         required this.attributes,
     });
+
+    factory Curso.fromRawJson(String str) => Curso.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Curso.fromJson(Map<String, dynamic> json) => Curso(
         id: json["id"],
@@ -49,29 +49,33 @@ class Curso {
 }
 
 class Attributes {
-    String nombre;
-    String descripcion;
-    String capacidad;
-    String fechaInicio;
-    DateTime createdAt;
-    DateTime updatedAt;
-    DateTime publishedAt;
+    final String nombre;
+    final String descripcion;
+    final String fecha;
+    final String capacidad;
+    final DateTime createdAt;
+    final DateTime updatedAt;
+    final DateTime publishedAt;
 
     Attributes({
         required this.nombre,
         required this.descripcion,
+        required this.fecha,
         required this.capacidad,
-        required this.fechaInicio,
         required this.createdAt,
         required this.updatedAt,
         required this.publishedAt,
     });
 
+    factory Attributes.fromRawJson(String str) => Attributes.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
+
     factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
         nombre: json["nombre"],
         descripcion: json["descripcion"],
+        fecha: json["fecha"],
         capacidad: json["capacidad"],
-        fechaInicio: json["fechaInicio"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         publishedAt: DateTime.parse(json["publishedAt"]),
@@ -80,8 +84,8 @@ class Attributes {
     Map<String, dynamic> toJson() => {
         "nombre": nombre,
         "descripcion": descripcion,
+        "fecha": fecha,
         "capacidad": capacidad,
-        "fechaInicio": fechaInicio,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "publishedAt": publishedAt.toIso8601String(),
@@ -89,11 +93,15 @@ class Attributes {
 }
 
 class Meta {
-    Pagination pagination;
+    final Pagination pagination;
 
     Meta({
         required this.pagination,
     });
+
+    factory Meta.fromRawJson(String str) => Meta.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Meta.fromJson(Map<String, dynamic> json) => Meta(
         pagination: Pagination.fromJson(json["pagination"]),
@@ -105,10 +113,10 @@ class Meta {
 }
 
 class Pagination {
-    int page;
-    int pageSize;
-    int pageCount;
-    int total;
+    final int page;
+    final int pageSize;
+    final int pageCount;
+    final int total;
 
     Pagination({
         required this.page,
@@ -116,6 +124,10 @@ class Pagination {
         required this.pageCount,
         required this.total,
     });
+
+    factory Pagination.fromRawJson(String str) => Pagination.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
         page: json["page"],

@@ -1,21 +1,17 @@
-// To parse this JSON data, do
-//
-//     final asistenciasResponse = asistenciasResponseFromJson(jsonString);
-
 import 'dart:convert';
 
-AsistenciasResponse asistenciasResponseFromJson(String str) => AsistenciasResponse.fromJson(json.decode(str));
-
-String asistenciasResponseToJson(AsistenciasResponse data) => json.encode(data.toJson());
-
 class AsistenciasResponse {
-    List<Asistencia> data;
-    Meta meta;
+    final List<Asistencia> data;
+    final Meta meta;
 
     AsistenciasResponse({
         required this.data,
         required this.meta,
     });
+
+    factory AsistenciasResponse.fromRawJson(String str) => AsistenciasResponse.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory AsistenciasResponse.fromJson(Map<String, dynamic> json) => AsistenciasResponse(
         data: List<Asistencia>.from(json["data"].map((x) => Asistencia.fromJson(x))),
@@ -29,13 +25,17 @@ class AsistenciasResponse {
 }
 
 class Asistencia {
-    int id;
-    Attributes attributes;
+    final int id;
+    final Attributes attributes;
 
     Asistencia({
         required this.id,
         required this.attributes,
     });
+
+    factory Asistencia.fromRawJson(String str) => Asistencia.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Asistencia.fromJson(Map<String, dynamic> json) => Asistencia(
         id: json["id"],
@@ -49,17 +49,13 @@ class Asistencia {
 }
 
 class Attributes {
-    String usuario;
-    String curso;
-    String fecha;
-    String status;
-    DateTime createdAt;
-    DateTime updatedAt;
-    DateTime publishedAt;
+    final DateTime fecha;
+    final String status;
+    final DateTime createdAt;
+    final DateTime updatedAt;
+    final DateTime publishedAt;
 
     Attributes({
-        required this.usuario,
-        required this.curso,
         required this.fecha,
         required this.status,
         required this.createdAt,
@@ -67,10 +63,12 @@ class Attributes {
         required this.publishedAt,
     });
 
+    factory Attributes.fromRawJson(String str) => Attributes.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
+
     factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
-        usuario: json["Usuario"],
-        curso: json["curso"],
-        fecha: json["fecha"],
+        fecha: DateTime.parse(json["fecha"]),
         status: json["status"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
@@ -78,9 +76,7 @@ class Attributes {
     );
 
     Map<String, dynamic> toJson() => {
-        "Usuario": usuario,
-        "curso": curso,
-        "fecha": fecha,
+        "fecha": fecha.toIso8601String(),
         "status": status,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
@@ -89,11 +85,15 @@ class Attributes {
 }
 
 class Meta {
-    Pagination pagination;
+    final Pagination pagination;
 
     Meta({
         required this.pagination,
     });
+
+    factory Meta.fromRawJson(String str) => Meta.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Meta.fromJson(Map<String, dynamic> json) => Meta(
         pagination: Pagination.fromJson(json["pagination"]),
@@ -105,10 +105,10 @@ class Meta {
 }
 
 class Pagination {
-    int page;
-    int pageSize;
-    int pageCount;
-    int total;
+    final int page;
+    final int pageSize;
+    final int pageCount;
+    final int total;
 
     Pagination({
         required this.page,
@@ -116,6 +116,10 @@ class Pagination {
         required this.pageCount,
         required this.total,
     });
+
+    factory Pagination.fromRawJson(String str) => Pagination.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
     factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
         page: json["page"],

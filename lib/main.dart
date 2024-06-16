@@ -1,9 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
+import 'package:mygym_app/presentation/screens/home_user_screen.dart';
+
 import 'package:mygym_app/presentation/screens/login_screen.dart';
-import 'package:mygym_app/providers/asitencia_provider.dart';
+import 'package:mygym_app/providers/asistencia_provider.dart';
 import 'package:mygym_app/providers/curso_provider.dart';
 import 'package:mygym_app/providers/usuario_provider.dart';
+import 'package:provider_base_tools/provider_base_tools.dart';
 
 import 'package:provider/provider.dart';
 
@@ -12,7 +17,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   // cargue primero todas las configuraciones antes de correr la app 
-  //await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 } 
 
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
        primarySwatch: Colors.blue,
           useMaterial3: true,
          ),
-        home: const LoginScreen(),
+        home: const HomeAdminScreen(),
       ),
     );
   }
