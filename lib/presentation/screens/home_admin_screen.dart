@@ -56,7 +56,10 @@ class HomeAdminScreen extends StatelessWidget {
     cursoProvider.loadPublicCursoList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Gym App'),
+        title: const Text('Menu Administrador', style:TextStyle(
+          fontWeight:FontWeight.bold,
+        )),
+        centerTitle: true,
         backgroundColor: Colors.orangeAccent,
       ),
       drawer: Drawer(

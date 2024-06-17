@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mygym_app/models/cursos_response.dart';
 import 'package:mygym_app/presentation/screens/UserScreens/qr_code_screen.dart';
 import 'package:mygym_app/presentation/screens/login_screen.dart';
@@ -39,7 +40,10 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Gym App'),
+        title: const Text('Menu de Usuario', style: TextStyle(
+          fontWeight:FontWeight.bold,
+        ),),
+        centerTitle: true,
         backgroundColor: Colors.orangeAccent,
         leading: Builder(
           builder: (context) => IconButton(

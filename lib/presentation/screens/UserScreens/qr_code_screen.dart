@@ -12,13 +12,19 @@ class QRCodeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200], // Fondo de toda la pantalla
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Código QR',
-          style: TextStyle(color: Colors.black87), // Color de texto en el AppBar
+          style: TextStyle(
+            fontSize: 24, // Tamaño de la fuente
+            fontWeight: FontWeight.bold, // Texto en negrita
+            color: Colors.black,
+          ), // Color de texto en el AppBar
         ),
         backgroundColor: Colors.transparent, // Fondo del AppBar transparente
         elevation: 0, // Sin sombra en el AppBar
-        iconTheme: const IconThemeData(color: Colors.black87), // Color de los íconos en el AppBar
+        iconTheme: const IconThemeData(
+            color: Colors.black87), // Color de los íconos en el AppBar
       ),
       body: Center(
         child: Card(
@@ -49,7 +55,6 @@ class QRCodeScreen extends StatelessWidget {
                   size: 200.0,
                 ),
                 const SizedBox(height: 24),
-                
               ],
             ),
           ),

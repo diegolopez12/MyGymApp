@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
-//import 'home_user_screen.dart'; 
+import 'package:mygym_app/presentation/screens/home_user_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,12 +13,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String? _selectedRole;
   bool _isLoading = false;
   String? _errorMessage;
 
   bool _validateEmail(String email) {
-    String emailPattern =
-        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
     RegExp regex = RegExp(emailPattern);
     return regex.hasMatch(email);
   }
@@ -40,17 +40,24 @@ class _LoginScreenState extends State<LoginScreen> {
       // Simulamos una llamada de red con un retraso
       await Future.delayed(const Duration(seconds: 2));
 
-      // Aquí debería ir la lógica para verificar el correo y la clave
+      // Validamos el rol seleccionado y redirigimos según corresponda
       if (_emailController.text == "test@example.com" &&
           _passwordController.text == "Password@123") {
         // Credenciales correctas
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeAdminScreen()),
-        );
+        if (_selectedRole == 'admin') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeAdminScreen()),
+          );
+        } else if (_selectedRole == 'usuario') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeUserScreen()),
+          );
+        }
       } else {
         // Credenciales incorrectas
         setState(() {
@@ -149,6 +156,38 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             if (!_validatePassword(value)) {
                               return 'La clave debe tener al menos 8 caracteres, incluyendo letras, números y al menos un carácter especial';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        DropdownButtonFormField<String>(
+                          value: _selectedRole,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _selectedRole = value;
+                            });
+                          },
+                          items: <String>['admin', 'usuario']
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                ),
+                              )
+                              .toList(),
+                          decoration: InputDecoration(
+                            labelText: 'Rol',
+                            labelStyle: const TextStyle(color: Colors.white),
+                            filled: true,
+                            fillColor: Colors.white.withOpacity(0.8),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor seleccione un rol';
                             }
                             return null;
                           },

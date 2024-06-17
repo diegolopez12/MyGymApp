@@ -13,69 +13,40 @@ class CourseDetailScreen extends StatelessWidget {
         title: Text(curso.attributes.nombre),
         backgroundColor: Colors.orangeAccent,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      curso.attributes.nombre,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orangeAccent,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  _buildSection('Descripción', curso.attributes.descripcion),
-                  _buildSection('Fecha', curso.attributes.fecha),
-                  _buildSection('Capacidad', curso.attributes.capacidad.toString()),
-                  _buildSection('Instructor', curso.attributes.instructor),
-                  _buildSection('Creado el', curso.attributes.createdAt.toIso8601String()),
-                  _buildSection('Actualizado el', curso.attributes.updatedAt.toIso8601String()),
-                  _buildSection('Publicado el', curso.attributes.publishedAt.toIso8601String()),
-                ],
-              ),
-            ),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Descripción:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.descripcion),
+            const SizedBox(height: 16),
+            const Text('Fecha:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.fecha),
+            const SizedBox(height: 16),
+            const Text('Capacidad:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.capacidad.toString()),
+            const SizedBox(height: 16),
+            const Text('Instructor:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.instructor),
+            const SizedBox(height: 16),
+            const Text('Creado el:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.createdAt.toIso8601String()),
+            const SizedBox(height: 16),
+            const Text('Actualizado el:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.updatedAt.toIso8601String()),
+            const SizedBox(height: 16),
+            const Text('Publicado el:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(curso.attributes.publishedAt.toIso8601String()),
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildSection(String title, String content) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.orangeAccent,
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            content,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black87,
-            ),
-          ),
-        ],
       ),
     );
   }

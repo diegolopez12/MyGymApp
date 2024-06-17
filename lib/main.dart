@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
 import 'package:mygym_app/presentation/screens/home_user_screen.dart';
+import 'package:mygym_app/presentation/screens/login_screen.dart';
 
 
 import 'package:mygym_app/providers/asistencia_provider.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
        primarySwatch: Colors.blue,
           useMaterial3: true,
          ),
-        home: const HomeAdminScreen(),
+        home: const LoginScreen(),
       ),
     );
   }
