@@ -1,56 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
-//import 'home_user_screen.dart'; 
-
+import 'package:mygym_app/presentation/screens/home_user_screen.dart';
+ 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
+ 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-
+ 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String? _selectedRole;
   bool _isLoading = false;
   String? _errorMessage;
-
+ 
   bool _validateEmail(String email) {
-    String emailPattern =
-        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
     RegExp regex = RegExp(emailPattern);
     return regex.hasMatch(email);
   }
-
+ 
   bool _validatePassword(String password) {
     String passwordPattern =
         r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$';
     RegExp regex = RegExp(passwordPattern);
     return regex.hasMatch(password);
   }
-
+ 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
       });
-
+ 
       // Simulamos una llamada de red con un retraso
       await Future.delayed(const Duration(seconds: 2));
-
-      // Aquí debería ir la lógica para verificar el correo y la clave
+ 
+      // Validamos el rol seleccionado y redirigimos según corresponda
       if (_emailController.text == "test@example.com" &&
           _passwordController.text == "Password@123") {
         // Credenciales correctas
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeAdminScreen()),
-        );
+        if (_selectedRole == 'admin') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeAdminScreen()),
+          );
+        } else if (_selectedRole == 'usuario') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeUserScreen()),
+          );
+        }
       } else {
         // Credenciales incorrectas
         setState(() {
@@ -60,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,6 +161,38 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         const SizedBox(height: 16),
+                        DropdownButtonFormField<String>(
+                          value: _selectedRole,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _selectedRole = value;
+                            });
+                          },
+                          items: <String>['admin', 'usuario']
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                ),
+                              )
+                              .toList(),
+                          decoration: InputDecoration(
+                            labelText: 'Rol',
+                            labelStyle: const TextStyle(color: Colors.white),
+                            filled: true,
+                            fillColor: Colors.white.withOpacity(0.8),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor seleccione un rol';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
                         if (_errorMessage != null)
                           Text(
                             _errorMessage!,
@@ -188,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
+ 
   @override
   void dispose() {
     _emailController.dispose();
@@ -196,3 +235,4 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 }
+ 
