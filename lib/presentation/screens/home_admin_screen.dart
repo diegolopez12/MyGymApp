@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mygym_app/presentation/screens/add_user_screen.dart';
+import 'package:mygym_app/models/cursos_response.dart';
+import 'package:mygym_app/presentation/screens/UserScreens/add_user_screen.dart';
+
 import 'package:mygym_app/presentation/screens/courses_screens/add_course_screen.dart';
+import 'package:mygym_app/presentation/screens/courses_screens/course_details_screen.dart';
 import 'package:mygym_app/presentation/screens/courses_screens/delete_course_screen.dart';
 import 'package:mygym_app/presentation/screens/courses_screens/modify_course_screen.dart';
 import 'package:mygym_app/presentation/screens/login_screen.dart';
 import 'package:mygym_app/providers/curso_provider.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({super.key});
@@ -38,10 +41,19 @@ class HomeAdminScreen extends StatelessWidget {
     );
   }
 
+  void _navigateToCourseDetail(BuildContext context, Curso curso) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CourseDetailScreen(curso: curso),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cursoProvider = context.watch<CursoProvider>();
-   cursoProvider.loadPublicCursoList();
+    cursoProvider.loadPublicCursoList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Gym App'),
@@ -96,16 +108,16 @@ class HomeAdminScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.all(16.0),
-                itemCount: cursoProvider.cursoList.length, // Aquí hay que poner el número de cursos desde la base de datos
+                itemCount: cursoProvider.cursoList.length,
                 itemBuilder: (context, index) {
-                    final curso = cursoProvider.cursoList[index];
+                  final curso = cursoProvider.cursoList[index];
                   return Card(
                     color: Colors.white.withOpacity(0.8),
                     child: ListTile(
-                       title: Text(curso.attributes.nombre),
+                      title: Text(curso.attributes.nombre),
                       subtitle: Text('Descripción del curso: ${curso.attributes.descripcion}'),
                       onTap: () {
-                        // Lógica para ver detalles del curso
+                        _navigateToCourseDetail(context, curso);
                       },
                     ),
                   );

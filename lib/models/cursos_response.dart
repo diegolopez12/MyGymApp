@@ -52,10 +52,11 @@ class Attributes {
     final String nombre;
     final String descripcion;
     final String fecha;
-    final String capacidad;
+    final int capacidad;
     final DateTime createdAt;
     final DateTime updatedAt;
     final DateTime publishedAt;
+    final String instructor;
 
     Attributes({
         required this.nombre,
@@ -65,6 +66,7 @@ class Attributes {
         required this.createdAt,
         required this.updatedAt,
         required this.publishedAt,
+        required this.instructor,
     });
 
     factory Attributes.fromRawJson(String str) => Attributes.fromJson(json.decode(str));
@@ -74,21 +76,23 @@ class Attributes {
     factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
         nombre: json["nombre"],
         descripcion: json["descripcion"],
-        fecha: json["fecha"],
+        fecha: json["Fecha"],
         capacidad: json["capacidad"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         publishedAt: DateTime.parse(json["publishedAt"]),
+        instructor: json["instructor"],
     );
 
     Map<String, dynamic> toJson() => {
         "nombre": nombre,
         "descripcion": descripcion,
-        "fecha": fecha,
+        "Fecha": fecha,
         "capacidad": capacidad,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "publishedAt": publishedAt.toIso8601String(),
+        "instructor": instructor,
     };
 }
 

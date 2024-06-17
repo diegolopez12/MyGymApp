@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mygym_app/presentation/screens/home_admin_screen.dart';
 import 'package:mygym_app/presentation/screens/home_user_screen.dart';
 
-import 'package:mygym_app/presentation/screens/login_screen.dart';
+
 import 'package:mygym_app/providers/asistencia_provider.dart';
 import 'package:mygym_app/providers/curso_provider.dart';
 import 'package:mygym_app/providers/usuario_provider.dart';

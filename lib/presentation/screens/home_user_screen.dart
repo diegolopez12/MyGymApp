@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mygym_app/models/cursos_response.dart';
+import 'package:mygym_app/presentation/screens/UserScreens/qr_code_screen.dart';
 import 'package:mygym_app/presentation/screens/login_screen.dart';
+ // Importa QRUserScreen
+import 'package:mygym_app/providers/curso_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeUserScreen extends StatefulWidget {
-  const HomeUserScreen({super.key});
+  const HomeUserScreen({Key? key}) : super(key: key);
 
   @override
   _HomeUserScreenState createState() => _HomeUserScreenState();
@@ -17,8 +22,21 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
     );
   }
 
+  void _navigateToQRScreen(BuildContext context, Curso curso) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        
+        builder: (context) => QRCodeScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final cursoProvider = context.watch<CursoProvider>();
+    cursoProvider.loadPublicCursoList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Gym App'),
@@ -37,7 +55,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
-              height: 80, 
+              height: 80,
               padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
                 color: Colors.orangeAccent,
@@ -47,7 +65,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                 child: Text(
                   'Menú',
                   style: TextStyle(
-                    fontSize: 18, 
+                    fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
@@ -66,28 +84,24 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
         ),
       ),
       body: Container(
-        color: Colors.black.withOpacity(0.1), 
+        color: Colors.black.withOpacity(0.1),
         child: Column(
           children: [
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.all(16.0),
-                itemCount: 4, // Número de cursos
+                itemCount: cursoProvider.cursoList.length,
                 itemBuilder: (context, index) {
+                  final curso = cursoProvider.cursoList[index];
                   return Card(
                     color: Colors.white.withOpacity(0.8),
                     child: ListTile(
-                      title: Text(
-                        'Curso ${index + 1}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text('Descripción del curso ${index + 1}'),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.arrow_forward),
-                        onPressed: () {
-                          // Acción al presionar el botón de detalle
-                        },
-                      ),
+                      title: Text(curso.attributes.nombre),
+                      subtitle: Text(
+                          'Descripción del curso: ${curso.attributes.descripcion}'),
+                      onTap: () {
+                        _navigateToQRScreen(context, curso);
+                      },
                     ),
                   );
                 },
