@@ -35,13 +35,13 @@ class MyApp extends StatelessWidget {
 
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'My Gym App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
        primarySwatch: Colors.blue,
           useMaterial3: true,
          ),
-        home: const LoginScreen(),
+        home: const HomeAdminScreen(),
       ),
     );
   }
